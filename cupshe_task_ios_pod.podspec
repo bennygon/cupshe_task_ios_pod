@@ -35,6 +35,10 @@ Pod::Spec.new do |s|
   # s.resource_bundles = {
   #   'cupshe_task_ios_pod' => ['cupshe_task_ios_pod/Assets/*.png']
   # }
+  
+  s.resource_bundles = {
+    'cupshe_task_ios_pod' => ['cupshe_task_ios_pod/Assets/*.*']
+  }
 
   s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

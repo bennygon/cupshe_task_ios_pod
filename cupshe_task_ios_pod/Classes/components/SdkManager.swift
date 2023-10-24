@@ -19,11 +19,30 @@ open class SdkManager {
     
     public func sdk_img(named name: String) -> UIImage? {
         
+        let scale = UIScreen.main.scale
+        
         let bundle = Bundle(for: SdkManager.self);
-        let img = UIImage(named: name, in:bundle,compatibleWith: nil)
+        let name = "@" + String.init( format: "%d", scale ) + "x"
+        let dir = "cupshe_task_ios_pod.bundle"
+        var path:String? = bundle.path(forResource: name, ofType: "otf", inDirectory: dir)
+//        let img = UIImage(named: name, in:bundle,compatibleWith: nil)
 //        let img = UIImage(named: name)
-        return img
+//        return  path != nil ? [UIImage imageWithContentsOfFile:path] : nil;
+        
+        return path != nil ? UIImage(contentsOfFile: path!) : nil
     }
+    
+    
+    
+//    NSInteger scale = [[UIScreen mainScreen] scale];
+//            NSBundle *currentBundle = [NSBundle bundleForClass:targetClass];
+//            NSString *name = [NSString stringWithFormat:@"%@@%zdx",imageName,scale];
+//            NSString *dir = [NSString stringWithFormat:@"%@.bundle",bundle];
+//            NSString *path = [currentBundle pathForResource:name ofType:@"png" inDirectory:dir];
+//            return path ? [UIImage imageWithContentsOfFile:path] : nil;
+
+    
+    
 }
 
 class FontManager {
@@ -31,10 +50,19 @@ class FontManager {
         
     }
     
+//    public func regBold(for classObj: AnyClass){
+//        let bundle = Bundle(for: classObj.self);
+//
+//            let path = [currentBundle pathForResource:@"CODE BOLD.OTF" ofType:nil inDirectory:@"FFSpecialKit”];
+//    }
+//
+//
+    
+    
     public func regCustomFont(for classObj: AnyClass){
         let bundle = Bundle(for: classObj.self);
         
-        let bold_path = bundle.path(forResource: "bold", ofType: "otf")
+        let bold_path = bundle.path(forResource: "bold", ofType: "otf", inDirectory: "cupshe_task_ios_pod")
         var bold_fontData = NSData.init(contentsOfFile: bold_path!)
         // ...通过CGDataProvider承载生成CGFont对象
         let bold_fontDataProvider = CGDataProvider(data: CFBridgingRetain(bold_fontData) as! CFData)
@@ -47,7 +75,7 @@ class FontManager {
 //         ...获取了字体实际名字
 //        bold_fontName =  bold_fontRef.fullName! as String
         
-        let demi_path = bundle.path(forResource: "demi", ofType: "otf")
+        let demi_path = bundle.path(forResource: "demi", ofType: "otf", inDirectory: "cupshe_task_ios_pod")
         var demi_fontData = NSData.init(contentsOfFile: demi_path!)
         // ...通过CGDataProvider承载生成CGFont对象
         let demi_fontDataProvider = CGDataProvider(data: CFBridgingRetain(demi_fontData) as! CFData)
@@ -57,7 +85,7 @@ class FontManager {
         var demi_fontError = Unmanaged<CFError>?.init(nilLiteral: ())
         CTFontManagerRegisterGraphicsFont(demi_fontRef, &demi_fontError)
         
-        let medium_path = bundle.path(forResource: "medium", ofType: "ttf")
+        let medium_path = bundle.path(forResource: "medium", ofType: "ttf", inDirectory: "cupshe_task_ios_pod")
         var medium_fontData = NSData.init(contentsOfFile: medium_path!)
         // ...通过CGDataProvider承载生成CGFont对象
         let medium_fontDataProvider = CGDataProvider(data: CFBridgingRetain(medium_fontData) as! CFData)
@@ -68,7 +96,7 @@ class FontManager {
         CTFontManagerRegisterGraphicsFont(medium_fontRef, &medium_fontError)
         
         
-        let regular_path = bundle.path(forResource: "regular", ofType: "otf")
+        let regular_path = bundle.path(forResource: "regular", ofType: "otf", inDirectory: "cupshe_task_ios_pod")
         var regular_fontData = NSData.init(contentsOfFile: regular_path!)
         // ...通过CGDataProvider承载生成CGFont对象
         let regular_fontDataProvider = CGDataProvider(data: CFBridgingRetain(regular_fontData) as! CFData)
